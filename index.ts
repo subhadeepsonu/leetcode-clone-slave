@@ -71,7 +71,7 @@ async function slave() {
                 result.correct = (result.passedCases == result.totalCases) ? true : false
 
                 try {
-                    const reponse = await axios.put(`http://13.201.4.190:3000/api/v1/submission/${recived_body.submissionId}`, {
+                    const reponse = await axios.put(`http://localhost:3000/api/v1/submission/${recived_body.submissionId}`, {
                         passedcases: result.passedCases,
                         failedcases: result.failedCases,
                         totalcases: result.totalCases,
