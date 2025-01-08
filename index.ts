@@ -67,14 +67,16 @@ async function slave() {
                     })
                 );
                 result.correct = (result.passedCases == result.totalCases) ? true : false
+
                 try {
-                    await axios.put(`http://13.201.4.190:3000/api/v1/submission/${recived_body.submissionId}`, {
+                    const reponse = await axios.put(`http://13.201.4.190:3000/api/v1/submission/${recived_body.submissionId}`, {
                         passedcases: result.passedCases,
                         failedcases: result.failedCases,
                         totalcases: result.totalCases,
                         correct: result.correct,
                         userId: recived_body.userId
                     });
+                    console.log(reponse.data)
                 } catch (err: any) {
                     console.error("Error updating submission result:", err.response?.data || err.message || err);
                 }
