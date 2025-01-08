@@ -51,6 +51,7 @@ async function slave() {
                                 if (resposne2.data.status.description === "Accepted" || resposne2.data.status.description === "Wrong Answer") {
 
                                     if (resposne2.data.status.description === "Accepted") {
+                                        console.log(result)
                                         result.passedCases += 1;
                                     } else {
                                         result.failedCases += 1;
