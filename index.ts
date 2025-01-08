@@ -21,7 +21,6 @@ async function slave() {
             const submissions = await client.brPop("submissions", 0);
             if (submissions) {
                 const recived_body = JSON.parse(submissions.element);
-                console.log(recived_body)
                 let result = {
                     passedCases: 0,
                     failedCases: 0,
@@ -29,7 +28,6 @@ async function slave() {
                     correct: false,
                     userId: recived_body.userId
                 };
-                console.log("enter  promoise all")
                 await Promise.all(
                     recived_body.testcases.map(async (testcase: any) => {
                         let code = "const a = require('fs').readFileSync('/dev/stdin').toString().trim().startsWith('[') && require('fs').readFileSync('/dev/stdin').toString().trim().endsWith(']') ? JSON.parse(require('fs').readFileSync('/dev/stdin').toString().trim()) : !isNaN(require('fs').readFileSync('/dev/stdin').toString().trim()) ? Number(require('fs').readFileSync('/dev/stdin').toString().trim()) : require('fs').readFileSync('/dev/stdin').toString().trim();" + recived_body.code
@@ -67,7 +65,6 @@ async function slave() {
                         }
                     })
                 );
-                console.log("exit promoise all")
                 result.correct = (result.passedCases == result.totalCases) ? true : false
 
                 try {
@@ -78,13 +75,13 @@ async function slave() {
                         correct: result.correct,
                         userId: recived_body.userId
                     });
-                    console.log(reponse.data)
+
                 } catch (err: any) {
                     console.error("Error updating submission result:", err.response?.data || err.message || err);
                 }
             }
         } catch (error: any) {
-            console.error("Error:", error.message);
+
             await client.quit();
             break;
         }
